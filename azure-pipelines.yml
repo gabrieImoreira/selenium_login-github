@@ -1,0 +1,23 @@
+
+trigger:
+- main
+
+pool:
+  name: agent-macOS-pipeline
+steps:
+- script: |
+    echo Hello world
+  displayName: 'Início'
+
+- script: |
+    pip3 install pipenv
+    pipenv install
+  displayName: 'Install dependencies'
+
+- script: |
+    pipenv run python3 main.py
+  displayName: 'run robot'
+- task: PublishPipelineArtifact@1
+  inputs:
+    targetPath: '.'
+    publishLocation: 'pipeline'
